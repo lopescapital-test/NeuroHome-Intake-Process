@@ -43,13 +43,23 @@
   --tier-accelerated: #0891b2;
   --tier-immersive: #9333ea;
 
-  /* Profile colors */
-  --prof-a: #16a34a;
-  --prof-b: #9333ea;
-  --prof-c: #d97706;
-  --prof-d: #2563eb;
-  --prof-e: #ea580c;
-  --prof-f: #be123c;
+  /* Bucket palette — unified clinical taxonomy
+     Legacy --prof-* aliases preserved below for internal class-name compatibility */
+  --bk-foundational:        #16a34a;
+  --bk-acquired-regression: #9333ea;
+  --bk-environmental:       #d97706;
+  --bk-sensory-motor:       #2563eb;
+  --bk-birth-structural:    #ea580c;
+  --bk-hyperimmune:         #be123c;
+  --bk-md-intake:           #475569;
+
+  /* Legacy aliases — same hex, kept so existing classes keep painting correctly */
+  --prof-a: var(--bk-foundational);
+  --prof-b: var(--bk-acquired-regression);
+  --prof-c: var(--bk-environmental);
+  --prof-d: var(--bk-sensory-motor);
+  --prof-e: var(--bk-birth-structural);
+  --prof-f: var(--bk-hyperimmune);
 
   /* Three-pillar palette */
   --pillar-mental: #7c3aed;
@@ -1426,6 +1436,8 @@ body {
 .ff-signal-letter.D { color: var(--prof-d); }
 .ff-signal-letter.E { color: var(--prof-e); }
 .ff-signal-letter.F { color: var(--prof-f); }
+.ff-signal-letter.M { color: #0d9488; }
+.ff-signal-letter.S { color: var(--bk-md-intake); }
 .ff-signal-name { color: var(--text-secondary); font-size: 11.5px; }
 .ff-signal-track {
   height: 5px;
@@ -1448,6 +1460,32 @@ body {
   color: var(--text-muted);
 }
 .ff-signal-row.leading .ff-signal-pct { color: var(--text-primary); font-weight: 600; }
+
+/* Special-state rows — deferred (Metabolic) and md_route (Severe Dysreg).
+   Reuses the same grid; replaces the progress bar with a status label
+   and dims the row so it reads as "in the taxonomy, not in the scoring." */
+.ff-signal-row.ff-signal-special { opacity: 0.62; }
+.ff-signal-row.ff-signal-special .ff-signal-name { font-style: italic; }
+.ff-signal-track-special {
+  height: 5px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+}
+.ff-signal-status-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.ff-signal-pct-special {
+  color: var(--text-muted);
+  font-style: italic;
+}
 
 /* Result reveal panel */
 .ff-result {
@@ -5049,7 +5087,7 @@ body {
           <div class="cover-persona-state" id="cover-persona-state">
             <span class="cover-persona-state-label">Walking →</span>
             <span class="cover-persona-state-pills">
-              <span class="cover-persona-pill profile-D" id="cover-persona-pill-profile">Profile D · Mild / Hemispheric</span>
+              <span class="cover-persona-pill profile-D" id="cover-persona-pill-profile">Sensory-Motor Pattern</span>
               <span class="cover-persona-pill tier-Foundation" id="cover-persona-pill-tier">Foundation · MID</span>
             </span>
             <span class="cover-persona-state-hint">↓ the form on Stage 02a swaps this</span>
@@ -5261,7 +5299,7 @@ body {
     <!-- ============================================================
          SLIDE 3 — STAGE 02b: PROFILE ASSIGNED + BOOK CALL CTA
          ============================================================ -->
-    <section class="slide" data-stage="Stage 02 · Profile Assigned">
+    <section class="slide" data-stage="Stage 02 · Foundational Patternssigned">
       <div class="slide-inner">
         <div class="stage-tag">Stage 02b · The Hand-off Moment</div>
         <h1 class="headline">The button changes. <em>From "continue" to "book a call."</em></h1>
@@ -5289,7 +5327,7 @@ body {
               <div>
                 <div class="result-card" id="s3-result-card" data-default-letter="D">
                   <div class="result-card-head">
-                    <div class="result-card-name" id="s3-profile-name">Mild brain stress with a hemispheric pattern</div>
+                    <div class="result-card-name" id="s3-profile-name">Sensory-Motor Pattern · coordination and cerebellar timing</div>
                     <span class="confidence-pill" id="s3-confidence-pill">70% match</span>
                   </div>
                   <div id="s3-profile-body">
@@ -5304,7 +5342,7 @@ body {
                       <div class="conf-pct">70%</div>
                     </div>
                     <div class="conf-row">
-                      <div class="conf-label">Pure neurodev</div>
+                      <div class="conf-label">Foundational</div>
                       <div class="conf-track"><div class="conf-fill b" style="width:18%"></div></div>
                       <div class="conf-pct">18%</div>
                     </div>
@@ -5389,7 +5427,7 @@ body {
 
         <div class="caveat" style="margin-top: 22px; max-width: 1100px; margin-left: auto; margin-right: auto;">
           <span class="caveat-mono">Internal · classification this triggers in CRM</span>
-          <strong>Lead profile pushed to concierge:</strong> <span id="s3-crm-pills"><span class="prof-pill D">Profile D · primary</span> &nbsp; <span class="prof-pill A">Profile A · secondary</span> &nbsp; <span class="prof-pill C">Profile C · secondary</span></span> · <span id="s3-crm-intensity">MID intensity (pending capacity Q's)</span> · <span id="s3-crm-tier">Foundation tier likely</span> · <span id="s3-crm-ltv">est LTV $14k–$18k including Continuing Care</span>. Concierge prep brief auto-drafts before the call.
+          <strong>Lead profile pushed to concierge:</strong> <span id="s3-crm-pills"><span class="prof-pill D">Sensory-Motor Pattern · primary</span> &nbsp; <span class="prof-pill A">Foundational Pattern · secondary</span> &nbsp; <span class="prof-pill C">Environmental Inflammatory Pattern · secondary</span></span> · <span id="s3-crm-intensity">MID intensity (pending capacity Q's)</span> · <span id="s3-crm-tier">Foundation tier likely</span> · <span id="s3-crm-ltv">est LTV $14k–$18k including Continuing Care</span>. Concierge prep brief auto-drafts before the call.
         </div>
 
       </div>
@@ -5450,12 +5488,12 @@ body {
               <div class="email-attachment-icon">PDF</div>
               <div>
                 <div class="email-attachment-name" id="email-attachment-name">Liam_Martens_Preliminary_Profile_Report.pdf</div>
-                <div class="email-attachment-meta">10 pages · 612 KB · <strong>Personalized for Liam</strong> · <span id="email-attachment-profile">Profile D</span></div>
+                <div class="email-attachment-meta">10 pages · 612 KB · <strong>Personalized for Liam</strong> · <span id="email-attachment-profile">Sensory-Motor Pattern</span></div>
               </div>
               <div class="email-attachment-cta">View report →</div>
             </button>
 
-            <p><strong>Important caveat.</strong> This is a 70% read built from a 6-question intake — a starting hypothesis, not a diagnosis. We've also flagged <em><span id="email-secondary-name">Profile A — pure neurodevelopmental</span></em> as a real possibility (about <span id="email-secondary-pct">18</span>% match). The reflex tests we'll run on Tuesday's call, plus any data you can share before then, will help us hone in on which pattern is actually driving things.</p>
+            <p><strong>Important caveat.</strong> This is a 70% read built from a 6-question intake — a starting hypothesis, not a diagnosis. We've also flagged <em><span id="email-secondary-name">Foundational Pattern</span></em> as a real possibility (about <span id="email-secondary-pct">18</span>% match). The reflex tests we'll run on Tuesday's call, plus any data you can share before then, will help us hone in on which pattern is actually driving things.</p>
 
             <p>If you want to sharpen our read before Tuesday, upload anything you have to the secure portal below. Even one document puts you ahead of most families.</p>
 
@@ -5698,7 +5736,7 @@ body {
 
         <div class="caveat" style="margin-top: 12px;" id="s7-wins-caveat">
           <span class="caveat-mono">— Internal · the proof slide (02/08)</span>
-          <strong>The case studies on slide 02/08 are illustrative composites for the strategy demo</strong> — they reflect realistic-feeling patterns from the 41-family cohort, but every case shown needs to be sourced from a real chart, get explicit parent written consent, and pass MD signoff before it ships in customer-facing material. The cohort headline numbers ("8 of 11 Profile D cases reached age-typical speech volume by Wk 12") need to be reconciled against the actual cohort data and refreshed quarterly. Pulling this together is in the to-build column flagged in the Closing slide. Until those steps are complete, this slide is a placeholder for what real proof looks like — not the deployed version.
+          <strong>The case studies on slide 02/08 are illustrative composites for the strategy demo</strong> — they reflect realistic-feeling patterns from the 41-family cohort, but every case shown needs to be sourced from a real chart, get explicit parent written consent, and pass MD signoff before it ships in customer-facing material. The cohort headline numbers ("8 of 11 Sensory-Motor Pattern cases reached age-typical speech volume by Wk 12") need to be reconciled against the actual cohort data and refreshed quarterly. Pulling this together is in the to-build column flagged in the Closing slide. Until those steps are complete, this slide is a placeholder for what real proof looks like — not the deployed version.
         </div>
 
       </div>
@@ -6099,55 +6137,79 @@ body {
   const FF_PROFILES = {
     A: {
       letter: 'A',
-      name: 'Pure neurodevelopmental',
-      sub: 'Retained reflex pattern',
+      severity: '2',
+      name: 'Foundational Pattern',
+      sub: 'Bottom-up scaffolding · 2/10',
       color: '#16a34a',
-      desc: "Multiple developmental delays driven by retained primitive reflexes. The motor patterns underneath speech and focus didn't quite finish. Responds well to intensive reflex integration plus sensory work, but needs MID-to-HIGH intensity to hold the gains."
+      desc: "Bottom-up scaffolding (brainstem reflexes, vagal tone, hemispheric balance) didn't fully assemble. The brain is wired and ready to build — it just needs the right stimulation, in the right order, daily. The most common picture we see."
     },
     B: {
       letter: 'B',
-      name: 'Complex multi-system',
-      sub: 'Multiple drivers at once',
+      severity: '8',
+      name: 'Acquired Regression',
+      sub: 'Post-trigger multi-system loss · 8/10',
       color: '#9333ea',
-      desc: "Several systems involved simultaneously — qEEG findings, biomedical markers, inflammation. Requires medical co-management with our medical director. Best handled in our higher tiers with formal qEEG at intake."
+      desc: "Skills lost after a specific trigger — illness, vaccination, infection, or toxic exposure. The encouraging part is the clear 'before' to aim for. Biomedical work first (find and clear the driver), then neurological rebuild on top. Often heaviest tier."
     },
     C: {
       letter: 'C',
-      name: 'Environmentally driven',
-      sub: 'Inflammation pattern',
+      severity: '6',
+      name: 'Environmental Inflammatory',
+      sub: 'Chronic inflammation pattern · 6/10',
       color: '#d97706',
-      desc: "Inflammation-led pattern, often with mold or gut as the upstream driver. We lead with biomedical correction, then layer in neurological work. Progress tends to plateau until inflammation drops, then accelerates."
+      desc: "Gradual decline tied to environmental insult — most often chronic mold exposure or accumulated toxic load. Lead with biomedical correction; once inflammation drops, neurological gains accelerate."
     },
     D: {
       letter: 'D',
-      name: 'Mild brain stress',
-      sub: 'Hemispheric pattern · the modal case',
+      severity: '3',
+      name: 'Sensory-Motor Pattern',
+      sub: 'Coordination + cerebellar timing · 3/10',
       color: '#2563eb',
-      desc: "The most common profile we see. Verbal but slow to expand, no clear infection trigger, mild reflex signs. The brain isn't broken — it's developing unevenly. Responds well to a 12-week home protocol at MID intensity."
+      desc: "Cognitive hardware mostly in place but the link between sensory input and motor output is noisy. Retained primitive reflexes, vestibular work, and cerebellar timing are the levers. The modal NeuroHome case."
     },
     E: {
       letter: 'E',
-      name: 'Acquired brain injury',
-      sub: 'Focal motor / cognitive pattern',
+      severity: '4',
+      name: 'Birth or Structural',
+      sub: 'Targeted regional rebuild · 4/10',
       color: '#ea580c',
-      desc: "Known structural insult — birth trauma, hypoxic event, focal injury, or congenital diagnosis. Responds to targeted regional rebuild work, often with qEEG guidance. Trajectory can change significantly even when the underlying diagnosis doesn't."
+      desc: "Known structural event — birth trauma, hypoxic episode, focal injury, or congenital diagnosis. Targeted regional rebuild with site-specific PBM. Function can change significantly even when the underlying diagnosis doesn't."
     },
     F: {
       letter: 'F',
-      name: 'PANS / PANDAS pattern',
-      sub: 'Immune-driven onset',
+      severity: '7',
+      name: 'Immune-Driven Pattern',
+      sub: 'PANS / PANDAS-like · 7/10',
       color: '#be123c',
-      desc: "Sudden-onset behavioral or developmental change after illness. Time-sensitive. Best managed under our medical director with a flare-control protocol before standard intake. Often misdiagnosed for months before reaching us."
+      desc: "Sudden-onset behavioral or developmental change after illness. Time-sensitive. Co-managed with the medical director through flare control first; vagal regulation + infection-clearing combine to pull behaviors back."
+    },
+    M: {
+      letter: 'M',
+      severity: '5',
+      name: 'Metabolic / Nutritional',
+      sub: 'Deferred · scope in development · 5/10',
+      color: '#0d9488',
+      status: 'deferred',
+      desc: "Cellular energy + nutrient pathway driver — scope still being defined clinically. Not routed to in the V1 self-triage. Visible here so the full taxonomy is on the table for the team and for clinical review."
+    },
+    S: {
+      letter: 'S',
+      severity: '10',
+      name: 'Severe Dysregulation',
+      sub: 'MD-led intake · 10/10',
+      color: '#475569',
+      status: 'md_route',
+      desc: "Multi-system instability at a severity where direct clinician intake is the right entry point — not a self-triage card. Families whose answers point here skip the bucket reveal entirely and route straight to a Discovery Call."
     }
   };
 
-  const PROFILE_ORDER = ['D', 'A', 'B', 'C', 'E', 'F'];
+  const PROFILE_ORDER = ['D', 'A', 'B', 'C', 'E', 'F', 'M', 'S'];
 
   // State (also exposed on window for cross-slide use)
   const state = {
     currentQ: 0,
     answers: {},        // { questionId: optionIndex }
-    scores: { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 },
+    scores: { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, M: 0, S: 0 },
     intensity: null,
     complete: false
   };
@@ -6186,14 +6248,37 @@ body {
 
     host.innerHTML = PROFILE_ORDER.map(key => {
       const p = FF_PROFILES[key];
-      const score = state.scores[key];
+      const score = state.scores[key] || 0;
       const pct = total > 0 ? Math.round((score / total) * 100) : 0;
       const isLeader = key === leader;
+
+      // Special states — deferred (Metabolic) and md_route (Severe Dysreg)
+      if (p.status === 'deferred') {
+        return `
+          <div class="ff-signal-row ff-signal-special">
+            <span class="ff-signal-letter ${key}">${p.severity}</span>
+            <span class="ff-signal-name">${p.name}</span>
+            <span class="ff-signal-track ff-signal-track-special"><span class="ff-signal-status-label">in development</span></span>
+            <span class="ff-signal-pct ff-signal-pct-special">—</span>
+          </div>
+        `;
+      }
+      if (p.status === 'md_route') {
+        return `
+          <div class="ff-signal-row ff-signal-special">
+            <span class="ff-signal-letter ${key}">${p.severity}</span>
+            <span class="ff-signal-name">${p.name}</span>
+            <span class="ff-signal-track ff-signal-track-special"><span class="ff-signal-status-label">MD-led intake</span></span>
+            <span class="ff-signal-pct ff-signal-pct-special">→</span>
+          </div>
+        `;
+      }
+
       const fillStyle = `width: ${pct}%; background: ${p.color};`;
       return `
         <div class="ff-signal-row ${isLeader ? 'leading' : ''}">
-          <span class="ff-signal-letter ${key}">${key}</span>
-          <span class="ff-signal-name">${p.name.split(' ').slice(0,2).join(' ')}</span>
+          <span class="ff-signal-letter ${key}">${p.severity}</span>
+          <span class="ff-signal-name">${p.name}</span>
           <span class="ff-signal-track"><span class="ff-signal-fill" style="${fillStyle}"></span></span>
           <span class="ff-signal-pct">${pct}%</span>
         </div>
@@ -6533,7 +6618,7 @@ body {
     const tierEl = document.getElementById('s3-crm-tier');
     const ltvEl = document.getElementById('s3-crm-ltv');
     if (!pillsEl) return;
-    pillsEl.innerHTML = `<span class="prof-pill D">Profile D · primary</span> &nbsp; <span class="prof-pill A">Profile A · secondary</span> &nbsp; <span class="prof-pill C">Profile C · secondary</span>`;
+    pillsEl.innerHTML = `<span class="prof-pill D">Sensory-Motor Pattern · primary</span> &nbsp; <span class="prof-pill A">Foundational Pattern · secondary</span> &nbsp; <span class="prof-pill C">Environmental Inflammatory Pattern · secondary</span>`;
     intEl.textContent = `MID intensity (pending capacity Q's)`;
     tierEl.textContent = `Foundation tier likely`;
     ltvEl.textContent = `est LTV $14k–$18k including Continuing Care`;
@@ -6552,10 +6637,10 @@ body {
   }
 
   function resetSlide3() {
-    // Restore default Profile D card content
+    // Restore default Sensory-Motor Pattern card content
     const nameEl = document.getElementById('s3-profile-name');
     if (!nameEl) return;
-    nameEl.textContent = 'Mild brain stress with a hemispheric pattern';
+    nameEl.textContent = 'Sensory-Motor Pattern · coordination and cerebellar timing';
     document.getElementById('s3-confidence-pill').textContent = '70% match';
     document.getElementById('s3-result-card').style.borderLeftColor = '';
     document.getElementById('s3-profile-body').innerHTML = `
@@ -6569,7 +6654,7 @@ body {
         <div class="conf-pct">70%</div>
       </div>
       <div class="conf-row">
-        <div class="conf-label">Pure neurodev</div>
+        <div class="conf-label">Foundational</div>
         <div class="conf-track"><div class="conf-fill b" style="width:18%"></div></div>
         <div class="conf-pct">18%</div>
       </div>
@@ -6595,7 +6680,7 @@ body {
 
   const REPORTS = {
     A: {
-      coverTitle: '<em>Pure neurodevelopmental</em> — retained reflex pattern',
+      coverTitle: '<em>Foundational Pattern</em> — bottom-up scaffolding',
       whatItIs: "Liam's pattern looks like a <strong>pure neurodevelopmental case driven by retained primitive reflexes</strong>. The brain's foundation layers — sensory integration, balance, motor sequencing, the reflexes a baby is supposed to integrate before age 1 — didn't quite finish before language and focus tried to come online. The result is a child whose body is still operating partly on baby-brain wiring, and whose speech and attention are paying the price downstream.",
       causes: [
         "Often follows a difficult delivery, NICU stay, or prolonged labor — even without a formal diagnosis afterward.",
@@ -6615,11 +6700,11 @@ body {
         physical: "<strong>This is the spine of the protocol.</strong> Daily BRB primitive reflex sequence (10 min). LED Laser NSH at vagus, cerebellum, brainstem. Bilateral coordination drills 3×/day. Vestibular work — soldier marching, metronome alternation, balance beam.",
         biological: "Standard nutrient floor (mag glycinate, omega-3 DHA-led, methylated B-complex). Saliva + genetic baseline panel at week 1. Biomedical layer is usually quiet here — not a primary lever."
       },
-      secondaryNote: "The most common shift after the call is toward <strong>Profile D (mild brain stress, hemispheric)</strong> — same family, less reflex burden than expected. We'd reduce intensity if reflex testing comes back cleaner than your intake suggests."
+      secondaryNote: "The most common shift after the call is toward <strong>Sensory-Motor Pattern</strong> — same family, less reflex burden than expected. We'd reduce intensity if reflex testing comes back cleaner than your intake suggests."
     },
 
     B: {
-      coverTitle: '<em>Complex multi-system</em> — multiple drivers at once',
+      coverTitle: '<em>Acquired Regression Pattern</em> — post-trigger multi-system loss',
       whatItIs: "Liam's pattern shows <strong>several systems involved simultaneously</strong>. This is one of the more clinically demanding profiles we treat — neurological asymmetries, biomedical markers (gut, methylation, inflammation), and often qEEG findings all show up together. The body is fighting on multiple fronts, which is why standard single-lane therapy (just SLP, just OT, just supplements) tends to plateau quickly.",
       causes: [
         "Often follows maternal illness or immune activation in pregnancy (Covid, severe infection, autoimmune flare).",
@@ -6639,11 +6724,11 @@ body {
         physical: "LED Laser NSH at qEEG-identified sites. Vagus nerve stim. Cross-hemispheric coordination work. Vibration-speech pairing matrix.",
         biological: "<strong>This is where most of the early lift comes from.</strong> Anti-inflammatory hybrid diet (AIP / Paleo / Carnivore / Low-Histamine elimination, multi-week reset). Targeted gut + methylation support per labs. Co-managed with our medical director."
       },
-      secondaryNote: "The biggest decision on the call is <strong>Profile B vs Profile F (PANS-style)</strong>. They share qEEG-driven prescriptions and biomedical co-management. If onset was sudden and post-infectious, we shift to Profile F protocol with flare control first."
+      secondaryNote: "The biggest decision on the call is <strong>Acquired Regression Pattern vs Immune-Driven Pattern (PANS-like)</strong>. They share qEEG-driven prescriptions and biomedical co-management. If onset was sudden and post-infectious, we shift to Immune-Driven Pattern protocol with flare control first."
     },
 
     C: {
-      coverTitle: '<em>Environmentally driven</em> — inflammation pattern',
+      coverTitle: '<em>Environmental Inflammatory Pattern</em> — chronic inflammation driver',
       whatItIs: "Liam's pattern looks like an <strong>inflammation-led case with an environmental driver underneath</strong>. The most common version is mold or water-damage exposure, but chronic gut dysbiosis, hidden infection, and food-sensitivity loops can all produce the same picture. The brain's developmental programming was on track until the body's inflammatory load shut it down. Until inflammation drops, neurological work tends to plateau — which is why this profile leads with the biomedical pillar.",
       causes: [
         "<strong>Mold / mycotoxin exposure</strong> — water-damaged building, visible mold, family illness clusters that don't fully explain.",
@@ -6664,11 +6749,11 @@ body {
         physical: "Lighter primitive-reflex work in the first 3–4 weeks. Vagus stim and PBM as anti-inflammatory tools. Gentle vestibular work.",
         biological: "<strong>This is the lead pillar.</strong> Identify and remove the source (mold remediation if applicable). Binders + drainage support + targeted detox. Anti-inflammatory diet (AIP / Paleo). Targeted antimicrobials per labs. Once inflammation drops, neurological work accelerates rapidly."
       },
-      secondaryNote: "The boundary case here is <strong>Profile B (complex multi-system)</strong> — same biomedical signals but with multiple neurological systems simultaneously involved. The qEEG at intake usually decides which way Liam falls."
+      secondaryNote: "The boundary case here is <strong>Acquired Regression Pattern</strong> — same biomedical signals but with multiple neurological systems simultaneously involved. The qEEG at intake usually decides which way Liam falls."
     },
 
     D: {
-      coverTitle: '<em>Mild brain stress</em> — hemispheric pattern',
+      coverTitle: '<em>Sensory-Motor Pattern</em> — coordination and cerebellar timing',
       whatItIs: "Liam's pattern looks like the <strong>most common profile we see</strong>, and the one we have the cleanest playbook for. Verbal but slow to expand, no clear infection trigger, mild reflex signs (one or two, not all four), body and reflexes mostly tracking. The brain isn't broken — it's developing unevenly. One side is doing more of the work than the other, and the bottom layers of the developmental pyramid (sensory, reflex, balance) didn't quite finish before the top layers (language, focus) tried to come online. Speech is the visible symptom, not the cause.",
       causes: [
         "Often nothing dramatic — uneven developmental sequencing without a single triggering event.",
@@ -6687,13 +6772,13 @@ body {
       pillars: {
         mental: "Lateralized essential oils (rosemary L collar, peppermint R collar). Theta music 30 min/day. Blue-light glasses 60–120 min. Shen Men acupressure seeds.",
         physical: "BRB primitive reflex sequence 10 min/day. LED Laser NSH at vagus, cerebellum, frontal lobe 3×/wk. Saebo 4-in-1 stim 3×/day at face, vagus, paraspinal points. Bilateral coordination drills.",
-        biological: "Standard nutrient floor — magnesium glycinate, omega-3 DHA-led, methylated B-complex. Saliva + genetic baseline at week 1 to confirm or rule out drift toward Profile A."
+        biological: "Standard nutrient floor — magnesium glycinate, omega-3 DHA-led, methylated B-complex. Saliva + genetic baseline at week 1 to confirm or rule out drift toward Foundational Pattern."
       },
-      secondaryNote: "The most common shift after the call is toward <strong>Profile A (pure neurodevelopmental)</strong> — same family, more retained reflexes than expected. We'd push the protocol toward heavier motor work and a longer reflex integration phase before language drills if the in-call testing comes back stronger than your intake suggested."
+      secondaryNote: "The most common shift after the call is toward <strong>Foundational Pattern</strong> — same family, more retained reflexes than expected. We'd push the protocol toward heavier motor work and a longer reflex integration phase before language drills if the in-call testing comes back stronger than your intake suggested."
     },
 
     E: {
-      coverTitle: '<em>Acquired brain injury</em> — focal motor / cognitive pattern',
+      coverTitle: '<em>Birth or Structural Pattern</em> — targeted regional rebuild',
       whatItIs: "Liam's pattern points to a <strong>known structural insult</strong> — birth trauma, hypoxic event, focal injury, or congenital condition like PTCD. The brain was developing typically until something happened, and the recovery picture is regional rather than diffuse. This means our work targets specific affected systems rather than running a full developmental rebuild. The most important truth in this profile: <strong>function can change significantly even when the underlying diagnosis doesn't.</strong>",
       causes: [
         "<strong>Birth trauma</strong> — prolonged labor, hypoxic stress, cord compression, intracranial hemorrhage.",
@@ -6714,11 +6799,11 @@ body {
         physical: "<strong>Targeted regional rebuild work.</strong> Vestibular and motor sequencing tied to the affected limb or region. LED Laser NSH at qEEG-driven sites. Motor strip stimulation. Often co-managed with PT/OT outside our protocol.",
         biological: "Standard nutrient floor. Mitochondrial support — CoQ10, methylated Bs — particularly relevant in hypoxic injury cases. Inflammation management if there's a chronic component."
       },
-      secondaryNote: "Profile E is rarely confused with the other profiles because the structural diagnosis defines it. The relevant secondary question is <strong>scope</strong> — pediatric vs. adult ABI. Liam's age and case dictate how aggressively we can push neuroplasticity."
+      secondaryNote: "Birth or Structural Pattern is rarely confused with the other profiles because the structural diagnosis defines it. The relevant secondary question is <strong>scope</strong> — pediatric vs. adult ABI. Liam's age and case dictate how aggressively we can push neuroplasticity."
     },
 
     F: {
-      coverTitle: '<em>PANS / PANDAS pattern</em> — immune-driven onset',
+      coverTitle: '<em>Immune-Driven Pattern</em> — PANS / PANDAS-like',
       whatItIs: "Liam's pattern points to a <strong>PANS or PANDAS-style presentation</strong> — sudden-onset behavioral or developmental change after illness. This is one of the most clinically distinctive and time-sensitive profiles we treat. It's often misdiagnosed as autism, OCD, ADHD, or behavioral issues for months before reaching us. The mechanism is immune-driven: the immune system attacks basal ganglia / dopamine pathway tissue following a streptococcal or other infection. Tics, OCD-like patterns, regression, and sleep disruption follow.",
       causes: [
         "<strong>Streptococcal infection</strong> — strep throat, scarlet fever, even subclinical strep carriage (PANDAS).",
@@ -6739,7 +6824,7 @@ body {
         physical: "LED Laser NSH at qEEG-identified sites and basal ganglia. Vagus stim for parasympathetic regulation during flares.",
         biological: "<strong>Lead pillar — flare control comes first.</strong> Co-managed with our medical director. Antibiotic protocol if active strep. NSAIDs / steroid taper for inflammation. Multi-phase dietary reset (AIP-strict, then low-histamine). Targeted antimicrobials per stool work. Sometimes IVIG referral for severe cases."
       },
-      secondaryNote: "The most important differential is <strong>Profile B (complex multi-system)</strong>. Both share qEEG-driven prescriptions and biomedical co-management. The key signal is onset: <strong>sudden + post-infectious</strong> = PANS/PANDAS. Gradual onset with biomedical layering = Profile B."
+      secondaryNote: "The most important differential is <strong>Acquired Regression Pattern</strong>. Both share qEEG-driven prescriptions and biomedical co-management. The key signal is onset: <strong>sudden + post-infectious</strong> = PANS/PANDAS. Gradual onset with biomedical layering = Acquired Regression Pattern."
     }
   };
 
@@ -6747,11 +6832,11 @@ body {
   // 2 per profile + cohort-level number. Anonymized (initial + age) pending consent process.
   const REPORT_WINS = {
     A: {
-      cohortLine: "9 of 12 Profile A cases reached age-typical reflex integration by Wk 12. 2 needed protocol extension. 1 escalated to a heavier add-on stack.",
+      cohortLine: "9 of 12 Foundational Pattern cases reached age-typical reflex integration by Wk 12. 2 needed protocol extension. 1 escalated to a heavier add-on stack.",
       cases: [
         {
           tag: "L., 4y",
-          framing: "Pure neurodev · Foundation tier · MID intensity",
+          framing: "Foundational Pattern · Foundation tier · MID intensity",
           baseline: "Came in with 0 of 8 primitive reflexes integrated, ATEC of 62, couldn't sit through dinner, no bilateral coordination. SLP for a year with limited movement.",
           wk6: "Four reflexes integrated. Started crossing midline on her own. Sustained attention on tasks for the first time.",
           wk12: "Seven of 8 reflexes integrated. ATEC dropped 18 points. Sitting through 30-minute meals. Started copying letters.",
@@ -6760,7 +6845,7 @@ body {
         },
         {
           tag: "K., 5y",
-          framing: "Pure neurodev + heavy reflex burden · Accelerated tier · HIGH",
+          framing: "Foundational Pattern + heavy reflex burden · Accelerated tier · HIGH",
           baseline: "Speech intelligible to family only. Diagnosed with motor planning issues. Eighteen months of weekly SLP with a clear plateau.",
           wk6: "Spinal Galant and STNR integrated. Started crossing midline spontaneously during play. Attention noticeably steadier.",
           wk12: "Speech intelligible to teachers and other adults. Reading three-letter words. Tantrum frequency dropped roughly 70%.",
@@ -6770,7 +6855,7 @@ body {
       ]
     },
     B: {
-      cohortLine: "4 of 6 Profile B cases — every B case runs Immersive — saw meaningful gains across multiple domains by Wk 12. 2 needed protocol extension into Continuing Care.",
+      cohortLine: "4 of 6 Acquired Regression Pattern cases — every B case runs Immersive — saw meaningful gains across multiple domains by Wk 12. 2 needed protocol extension into Continuing Care.",
       cases: [
         {
           tag: "M., 5y",
@@ -6793,7 +6878,7 @@ body {
       ]
     },
     C: {
-      cohortLine: "4 of 5 Profile C cases regained their pre-regression baseline by Wk 12. 1 case extended — mold remediation outside our scope delayed neurological progress.",
+      cohortLine: "4 of 5 Environmental Inflammatory Pattern cases regained their pre-regression baseline by Wk 12. 1 case extended — mold remediation outside our scope delayed neurological progress.",
       cases: [
         {
           tag: "A., 4y",
@@ -6816,7 +6901,7 @@ body {
       ]
     },
     D: {
-      cohortLine: "8 of 11 Profile D cases reached age-typical speech volume by Wk 12. 2 saw partial gains. 1 needed protocol extension.",
+      cohortLine: "8 of 11 Sensory-Motor Pattern cases reached age-typical speech volume by Wk 12. 2 saw partial gains. 1 needed protocol extension.",
       cases: [
         {
           tag: "C., 3y",
@@ -6839,7 +6924,7 @@ body {
       ]
     },
     E: {
-      cohortLine: "2 of 2 Profile E cases — small N, but every case to date has shown measurable function changes in the affected region by Wk 12.",
+      cohortLine: "2 of 2 Birth or Structural Pattern cases — small N, but every case to date has shown measurable function changes in the affected region by Wk 12.",
       cases: [
         {
           tag: "T., 6y",
@@ -6862,7 +6947,7 @@ body {
       ]
     },
     F: {
-      cohortLine: "3 of 4 Profile F cases reached symptom remission by Wk 12. 1 case ongoing flare management with our medical director (chronic post-strep).",
+      cohortLine: "3 of 4 Immune-Driven Pattern cases reached symptom remission by Wk 12. 1 case ongoing flare management with our medical director (chronic post-strep).",
       cases: [
         {
           tag: "J., 7y",
@@ -6902,7 +6987,7 @@ body {
         <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;max-width:640px;margin-top:8px;">This report is built from your 6-question intake. It's a starting hypothesis, not a diagnosis. The deeper picture comes during the call — reflex testing, lab review, and direct observation will tighten this read significantly.</p>
         <div class="report-cover-row">
           <div class="report-cover-cell"><strong>${topPct}%</strong>Primary match</div>
-          <div class="report-cover-cell"><strong>Profile ${profileKey}</strong>Internal classification</div>
+          <div class="report-cover-cell"><strong>${p.severity}/10</strong>Severity score</div>
           <div class="report-cover-cell"><strong>${state.intensity || 'MID'}</strong>Intensity band</div>
           <div class="report-cover-cell"><strong>12 weeks</strong>Standard protocol</div>
         </div>
@@ -6981,7 +7066,7 @@ body {
               ${casesHTML}
             </div>
             <div class="report-wins-cohort">
-              <span class="report-wins-cohort-mark">— Cohort number for Profile ${profileKey}</span>
+              <span class="report-wins-cohort-mark">— Cohort number for the ${p.name}</span>
               ${w.cohortLine}
             </div>
             <div class="report-wins-foot"><strong>One important note.</strong> Every case is a child, not a guarantee. The pattern is consistent across the cohort — the speed varies. We'll be honest with you about what we're seeing as we go, week by week.</div>
@@ -7057,8 +7142,8 @@ body {
     const profileEl = document.getElementById('email-attachment-profile');
     const secondNameEl = document.getElementById('email-secondary-name');
     const secondPctEl = document.getElementById('email-secondary-pct');
-    if (profileEl) profileEl.textContent = 'Profile D';
-    if (secondNameEl) secondNameEl.textContent = 'Profile A — pure neurodevelopmental';
+    if (profileEl) profileEl.textContent = 'Sensory-Motor Pattern';
+    if (secondNameEl) secondNameEl.textContent = 'Foundational Pattern';
     if (secondPctEl) secondPctEl.textContent = '18';
   }
 
@@ -7292,7 +7377,7 @@ body {
     A: { primary: "Multiple developmental delays · retained primitive reflexes", flag: "Body is still holding baby-wiring" },
     B: { primary: "Multi-system involvement · qEEG-driven case", flag: "Multiple drivers, must coordinate" },
     C: { primary: "Inflammation-led · environmental driver suspected", flag: "Body load gates brain progress" },
-    D: { primary: "Mild brain stress · hemispheric asymmetry", flag: "Floor unfinished, speech downstream" },
+    D: { primary: "Sensory-Motor Pattern · hemispheric asymmetry", flag: "Floor unfinished, speech downstream" },
     E: { primary: "Focal structural insult · regional rebuild needed", flag: "Trajectory is not fixed by diagnosis" },
     F: { primary: "Sudden onset · post-infectious / immune-driven", flag: "Time-sensitive · flare control first" }
   };
@@ -7605,7 +7690,7 @@ body {
         { name: 'Stimpod NMS460', detail: 'Targeted to affected region per qEEG findings.' },
         { name: 'Brain Driver tDCS', detail: 'Affected hemisphere placement.' }
       ],
-      upgradeSignal: 'qEEG is foundational to Profile E intake — guides targeted regional rebuilding.',
+      upgradeSignal: 'qEEG is foundational to Birth or Structural Pattern intake — guides targeted regional rebuilding.',
       footNote: 'qEEG required at intake for regional localization (this profile only).'
     },
     F: {
@@ -7641,7 +7726,7 @@ body {
       coversNumbers: ['①', '②', '⑤', '⑥'],
       notCovered: ['③', '④'],
       forProfiles: ['A', 'D'],
-      whyThisOne: 'Profile A and D cases typically have biomedical drivers in the gut + metabolism only — no environmental or mold load behind the picture.'
+      whyThisOne: 'Foundational Pattern and D cases typically have biomedical drivers in the gut + metabolism only — no environmental or mold load behind the picture.'
     },
     FullDiagnostic: {
       label: 'Full Diagnostic',
@@ -7740,7 +7825,7 @@ body {
   // Per-profile recommendation blurbs (used on sales slide 1)
   const RECOMMENDATION_BLURBS = {
     A: "For pure neurodevelopmental cases like Liam's — retained reflexes, motor patterns that didn't quite finish — the spine of the protocol is reflex integration. The home protocol is non-negotiable. You'd do 10–15 minutes of reflex work daily, supported by laser at the brainstem and cerebellum. <strong>This tier gets you everything you need without overshooting.</strong>",
-    B: "For complex multi-system cases like Liam's, single-lane therapies plateau. We need a coordinated approach — qEEG-driven laser placement, dietary reset, biomedical co-management with our medical director, all running together. <strong>This is the tier built for cases like this.</strong>",
+    B: "For Acquired Regression Pattern cases like Liam's, single-lane therapies plateau. We need a coordinated approach — qEEG-driven laser placement, dietary reset, biomedical co-management with our medical director, all running together. <strong>This is the tier built for cases like this.</strong>",
     C: "For environmentally-driven cases like Liam's — where inflammation has been holding the brain back — we lead with the biomedical pillar. Source removal, binders, drainage, targeted antimicrobials. Once inflammation drops, neurological work accelerates. <strong>This tier gives us the room to work both lanes.</strong>",
     D: "For mild-to-moderate cases like Liam's, the standard 12-week home protocol is exactly right. Reflex work, lateralized inputs, LED Laser, and a clean re-evaluation gate at Wk 6. <strong>This is the tier our modal case runs on — and the one we have the cleanest playbook for.</strong>",
     E: "For acquired-brain-injury cases like Liam's, we build a regional protocol around the affected zone. qEEG-guided laser placement, vestibular work tied to the affected side, motor sequencing for the specific limb or function. <strong>Function changes even when the diagnosis doesn't.</strong>",
@@ -7753,7 +7838,7 @@ body {
   const WINS_BY_PROFILE = {
     A: {
       headline: "What twelve weeks looks like for cases like Liam's.",
-      cohortLine: "Cohort: 9 of 12 Profile A cases reached age-typical reflex integration by Wk 12. 2 needed extension. 1 escalated to full diagnostic + add-on stack.",
+      cohortLine: "Cohort: 9 of 12 Foundational Pattern cases reached age-typical reflex integration by Wk 12. 2 needed extension. 1 escalated to full diagnostic + add-on stack.",
       cases: [
         {
           tag: "L., 4y · pure neurodev",
@@ -7761,7 +7846,7 @@ body {
           wk6: "4 of 8 reflexes integrated. Attention shifting on tasks. Bilateral midline crossing emerging.",
           wk12: "7 of 8 integrated. ATEC dropped 18 points. Sitting through 30-min meals.",
           parentQuote: "\"Sitting still through dinner — that's the smallest thing and the biggest one. We didn't know it was possible.\"",
-          parentAttr: "— mom, Profile A · Foundation tier"
+          parentAttr: "— mom, Foundational Pattern · Foundation tier"
         },
         {
           tag: "K., 5y · pure neurodev + heavy reflex burden",
@@ -7769,21 +7854,21 @@ body {
           wk6: "Spinal Galant + STNR integrated. Started crossing midline spontaneously.",
           wk12: "Speech intelligible to teachers. Reading 3-letter words. Tantrums down ~70%.",
           parentQuote: "\"His teacher pulled me aside and asked what we were doing. She'd never seen a kid change this fast.\"",
-          parentAttr: "— dad, Profile A · Accelerated tier"
+          parentAttr: "— dad, Foundational Pattern · Accelerated tier"
         }
       ]
     },
     B: {
       headline: "What twelve weeks looks like for cases like Liam's.",
-      cohortLine: "Cohort: 4 of 6 Profile B cases — every B case runs Immersive — saw meaningful gains across multiple domains by Wk 12. 2 needed protocol extension into Continuing Care.",
+      cohortLine: "Cohort: 4 of 6 Acquired Regression Pattern cases — every B case runs Immersive — saw meaningful gains across multiple domains by Wk 12. 2 needed protocol extension into Continuing Care.",
       cases: [
         {
-          tag: "M., 5y · complex multi-pathway",
+          tag: "M., 5y · acquired regression",
           baseline: "Sleep disrupted nightly. GI symptoms. ATEC 78. Five different specialists, no coordinated plan.",
           wk6: "Sleep regulating after gut work. Inflammation markers improving on labs. qEEG showed measurable cortical shifts.",
           wk12: "Sleeping 10 hr through. ATEC dropped 24 points. First time off the wait-list for everything.",
           parentQuote: "\"First time in years he hasn't been on a wait-list for everything. We finally have a team that talks to each other.\"",
-          parentAttr: "— mom, Profile B · Immersive tier"
+          parentAttr: "— mom, Acquired Regression Pattern · Immersive tier"
         },
         {
           tag: "R., 6y · complex + biomedical-led",
@@ -7791,13 +7876,13 @@ body {
           wk6: "Flares dropped to 1×/2 weeks after diet reset + binders. Reflex work tolerated for first time.",
           wk12: "Flares resolved. ATEC down 15 points. Now in mainstream classroom support, not full-time aide.",
           parentQuote: "\"We tried this many things. None of them moved the needle the way these twelve weeks did.\"",
-          parentAttr: "— dad, Profile B · Immersive tier"
+          parentAttr: "— dad, Acquired Regression Pattern · Immersive tier"
         }
       ]
     },
     C: {
       headline: "What twelve weeks looks like for cases like Liam's.",
-      cohortLine: "Cohort: 4 of 5 Profile C cases regained pre-regression baseline by Wk 12. 1 case extended (mold remediation outside our scope delayed neurological progress).",
+      cohortLine: "Cohort: 4 of 5 Environmental Inflammatory Pattern cases regained pre-regression baseline by Wk 12. 1 case extended (mold remediation outside our scope delayed neurological progress).",
       cases: [
         {
           tag: "A., 4y · regression after move",
@@ -7805,7 +7890,7 @@ body {
           wk6: "Mycotoxins clearing. Eye contact returning. First spontaneous word in months: 'mama'.",
           wk12: "Back to pre-regression baseline. Now 60+ words. Family relocated.",
           parentQuote: "\"She came back. That's the only way I know to say it. She came back.\"",
-          parentAttr: "— mom, Profile C · Accelerated tier"
+          parentAttr: "— mom, Environmental Inflammatory Pattern · Accelerated tier"
         },
         {
           tag: "S., 5y · post-mold biomedical lead",
@@ -7813,13 +7898,13 @@ body {
           wk6: "Total Tox Burden showed mycotoxin load. Detox started. Behavior stabilizing.",
           wk12: "Rashes gone. GI calm. Behavior age-typical. Autism rule-out lifted.",
           parentQuote: "\"They were the first team to actually look at WHY. Everyone else just diagnosed and dispensed.\"",
-          parentAttr: "— mom, Profile C · Accelerated tier"
+          parentAttr: "— mom, Environmental Inflammatory Pattern · Accelerated tier"
         }
       ]
     },
     D: {
       headline: "What twelve weeks looks like for cases like Liam's.",
-      cohortLine: "Cohort: 8 of 11 Profile D cases reached age-typical speech volume by Wk 12. 2 saw partial gains. 1 needed protocol extension.",
+      cohortLine: "Cohort: 8 of 11 Sensory-Motor Pattern cases reached age-typical speech volume by Wk 12. 2 saw partial gains. 1 needed protocol extension.",
       cases: [
         {
           tag: "C., 3y · speech delay · Sarah's archetype",
@@ -7827,7 +7912,7 @@ body {
           wk6: "20+ words. Two-word combinations emerging. Bilateral coordination tightening.",
           wk12: "50+ words. Full phrases. Asking questions: 'where mommy go?' Started PreK ahead of schedule.",
           parentQuote: "\"We've gone from naming colors as 'red, red, red' to 'mommy I want red juice please'. Twelve weeks.\"",
-          parentAttr: "— mom, Profile D · Foundation tier"
+          parentAttr: "— mom, Sensory-Motor Pattern · Foundation tier"
         },
         {
           tag: "P., 4y · mild + hemispheric asymmetry",
@@ -7835,13 +7920,13 @@ body {
           wk6: "Hemispheric asymmetry tightening. Speech jumping in clarity. Right-side coordination catching up.",
           wk12: "Speech 95% intelligible. Hemispheric balance within typical range. Tantrums down significantly.",
           parentQuote: "\"His teacher said he went from 'the quiet one' to running the show in dramatic play.\"",
-          parentAttr: "— dad, Profile D · Foundation tier"
+          parentAttr: "— dad, Sensory-Motor Pattern · Foundation tier"
         }
       ]
     },
     E: {
       headline: "What twelve weeks looks like for cases like Liam's.",
-      cohortLine: "Cohort: 2 of 2 Profile E cases — small N, but every case to date has shown measurable function changes in the affected region by Wk 12.",
+      cohortLine: "Cohort: 2 of 2 Birth or Structural Pattern cases — small N, but every case to date has shown measurable function changes in the affected region by Wk 12.",
       cases: [
         {
           tag: "T., 6y · post-anoxic event at 4y",
@@ -7849,7 +7934,7 @@ body {
           wk6: "qEEG-guided laser daily. Right-hand grip strength returning. Speech rate normalizing.",
           wk12: "Right hand: buttoning shirts again. Speech: indistinguishable from pre-event recording family had on phone.",
           parentQuote: "\"The right hand is doing things we hadn't seen since the accident. We didn't think it was coming back.\"",
-          parentAttr: "— mom, Profile E · Immersive tier"
+          parentAttr: "— mom, Birth or Structural Pattern · Immersive tier"
         },
         {
           tag: "N., 5y · birth hypoxia",
@@ -7857,13 +7942,13 @@ body {
           wk6: "Targeted regional rebuild via Stimpod + Brain Driver. Left-side tone increasing.",
           wk12: "Climbing playground equipment with both sides. Symmetric crawl pattern returned.",
           parentQuote: "\"Early intervention got us so far and stopped. This restarted progress we thought was over.\"",
-          parentAttr: "— dad, Profile E · Immersive tier"
+          parentAttr: "— dad, Birth or Structural Pattern · Immersive tier"
         }
       ]
     },
     F: {
       headline: "What twelve weeks looks like for cases like Liam's.",
-      cohortLine: "Cohort: 3 of 4 Profile F cases reached symptom remission by Wk 12. 1 case ongoing flare management with our medical director (chronic post-strep).",
+      cohortLine: "Cohort: 3 of 4 Immune-Driven Pattern cases reached symptom remission by Wk 12. 1 case ongoing flare management with our medical director (chronic post-strep).",
       cases: [
         {
           tag: "J., 7y · sudden-onset OCD + tics",
@@ -7871,7 +7956,7 @@ body {
           wk6: "Antibiotic protocol Wk 1-3. NSAIDs. Diet reset. Tics down 70%. Handwashing reduced.",
           wk12: "Symptom remission. Returned to school full-time. Family back to baseline functioning.",
           parentQuote: "\"He's been my son again for three weeks straight now. We're starting to believe it's going to hold.\"",
-          parentAttr: "— mom, Profile F · Immersive tier"
+          parentAttr: "— mom, Immune-Driven Pattern · Immersive tier"
         },
         {
           tag: "B., 8y · post-PANDAS + chronic flares",
@@ -7879,7 +7964,7 @@ body {
           wk6: "Flare protocol contained latest episode in 2 weeks (down from 8 weeks). Hoolest + medical director collaboration.",
           wk12: "Flare-free 6 weeks. School performance back to grade level. First field trip in a year.",
           parentQuote: "\"We finally have a plan when a flare hits. We're not just enduring anymore.\"",
-          parentAttr: "— mom, Profile F · Accelerated tier"
+          parentAttr: "— mom, Immune-Driven Pattern · Accelerated tier"
         }
       ]
     }
