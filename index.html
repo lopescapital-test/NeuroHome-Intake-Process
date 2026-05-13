@@ -5731,7 +5731,7 @@ body {
 
         <div class="caveat" style="margin-top: 22px;" id="s7-editor-caveat">
           <span class="caveat-mono">— Internal · the refund mechanic</span>
-          <strong>The completion refund is doing three jobs at once.</strong> ① It makes the sticker price feel smaller — every tier shows a slashed-then-effective treatment, anchored to the under-$10K psychological line for Foundation. ② It drives compliance — families do the protocol because they earn the money back, which means they actually get results. ③ Most families never take the cash — they apply the earned refund as a credit toward Continuing Care, which becomes the bridge to year-two LTV. <strong>Tiered refunds:</strong> Foundation $1,500 · Accelerated $2,000 · Immersive $2,500. The framing on the call is a thank-you for trust, not a discount or a closing tactic — it has to feel like a gift, not a hook. Pricing anchored to Pricing Model v1.2; the refund mechanic is new and needs Kyle's approval before it ships.
+          <strong>The completion refund is doing three jobs at once.</strong> ① It makes the sticker price feel smaller — every tier shows a slashed-then-effective treatment, anchored to the under-$10K psychological line for Foundation. ② It drives compliance — families do the protocol because they earn the money back, which means they actually get results. ③ Most families never take the cash — they apply the earned refund as a credit toward Continuing Care, which becomes the bridge to year-two LTV. <strong>Tiered refunds:</strong> Foundation $1,500 · Accelerated $2,000 · Immersive $2,500. The framing on the call is a thank-you for trust, not a discount or a closing tactic — it has to feel like a gift, not a hook. Pricing anchored to Pricing Model v1.4.3; the refund mechanic ships as a Continuing Care credit earned at Wk 12 completion + CC enrollment.
         </div>
 
         <div class="caveat" style="margin-top: 12px;" id="s7-wins-caveat">
@@ -5748,7 +5748,7 @@ body {
     <section class="slide" data-stage="System view">
       <div class="slide-inner">
         <div class="stage-tag">Closing · The system, end-to-end</div>
-        <h1 class="headline">From a comment in Kyle's DMs <em>to a $9,000 Foundation enrollment</em> — in 11 days.</h1>
+        <h1 class="headline">From a comment in Kyle's DMs <em>to a $9,500 Foundation enrollment</em> — in 11 days.</h1>
         <p class="subhead">Sarah's path is one specific instance of a system designed to convert intent into an evidence-based plan. Four stages, one continuous thread — content to intake to email to call.</p>
 
         <!-- 4-stage horizontal flow -->
@@ -6566,7 +6566,7 @@ body {
   // Tier inference from profile + intensity (derived from Profile×Intensity matrix in source files)
   function inferTier(profileKey, intensity) {
     // Profile-specific tier mapping
-    // Foundation = $9.5k (mild/moderate, 12wk) · Accelerated = $14k (moderate-severe) · Immersive = $18.5k (severe/complex)
+    // Foundation = $9.5k (mild/moderate, 12wk) · Accelerated = $15k (moderate-severe) · Immersive = $19k (severe/complex)
     const map = {
       D: { LIGHT: 'Foundation', MID: 'Foundation', HIGH: 'Foundation' },
       A: { LIGHT: 'Foundation', MID: 'Foundation', HIGH: 'Accelerated' },
@@ -7544,14 +7544,14 @@ body {
   // SLIDE 7 (The Sale) — interactive sales deck inside Zoom share-screen
   // ============================================================
 
-  // Tier-specific data (price, hours, header gradient, etc.) — anchored to Pricing Model v1.2
+  // Tier-specific data (price, hours, header gradient, etc.) — anchored to Pricing Model v1.4.3
   const TIER_DATA = {
     Foundation: {
-      price: '$9,000',
-      effectivePrice: '$7,500',
+      price: '$9,500',
+      effectivePrice: '$8,000',
       refund: '$1,500',
-      perMonthSticker: '$1,500',
-      perMonthEffective: '$1,250',
+      perMonthSticker: '$1,583',
+      perMonthEffective: '$1,333',
       duration: '12 weeks',
       philosophy: '"We\u2019ll teach you, then you run with it."',
       tag: '12-week home protocol · concierge-led · clinician-coached',
@@ -7567,10 +7567,11 @@ body {
         '<strong>↳ 9 hrs</strong> OT/PT licensed clinician (sessions, protocol, gates)',
         '<strong>↳ 14 hrs</strong> concierge (clinically trained · daily coach)',
         '<strong>↳ 1.5 hrs</strong> medical director oversight',
-        '<strong>Foundational kit</strong> · 7 devices + supplements',
+        '<strong>Foundational kit</strong> · 10 items + 3-mo supplements',
+        '<strong>Mendi headband</strong> · weekly fNIRS · family keeps',
         '<strong>Universal labs</strong> · Stool + OAT panel',
         '<strong>NeuroSage Hub</strong> · 3-month access',
-        '<strong>ATEC tracking</strong> · baseline / Wk 6 / Wk 12'
+        '<strong>ATEC + Mendi tracking</strong> · baseline / Wk 6 / Wk 12'
       ],
       addOnLine: 'Optional: Full diagnostic labs upgrade · +$1,800'
     },
@@ -7595,7 +7596,8 @@ body {
         '<strong>↳ 13 hrs</strong> OT/PT licensed clinician (2× weekly active phase)',
         '<strong>↳ 20 hrs</strong> concierge (clinically trained · twice-weekly touch)',
         '<strong>↳ 2.5 hrs</strong> medical director oversight + chart review',
-        '<strong>Foundational kit</strong> · 7 devices + supplements',
+        '<strong>Foundational kit</strong> · 10 items + 3-mo supplements',
+        '<strong>Mendi headband</strong> · weekly fNIRS · family keeps',
         '<strong>Full diagnostic labs</strong> · all 6 categories included',
         '<strong>Pre &amp; mid consultation</strong> · bi-weekly MD chart review',
         '<strong>Profile-specific add-ons</strong> per clinical prescription'
@@ -7623,7 +7625,8 @@ body {
         '<strong>↳ 18.5 hrs</strong> OT/PT licensed clinician',
         '<strong>↳ 32 hrs</strong> concierge (clinically trained · daily M–F sessions)',
         '<strong>↳ 3.5 hrs</strong> MD · bi-weekly Kyle involvement',
-        '<strong>Foundational kit</strong> · 7 devices + supplements',
+        '<strong>Foundational kit</strong> · 10 items + 3-mo supplements',
+        '<strong>Mendi headband</strong> · daily fNIRS review · family keeps',
         '<strong>Full diagnostic labs</strong> · all 6 categories included',
         '<strong>Saturday weekly</strong> deep-dive sessions',
         '<strong>Pre &amp; post comprehensive</strong> consultation · priority access'
@@ -7632,23 +7635,26 @@ body {
     }
   };
 
-  // The foundational kit — UNIVERSAL across all paid tiers (per Kit Composition v0.3)
+  // The foundational kit — UNIVERSAL across all paid tiers (per Kit Composition v0.10)
   // Source: https://lopescapital-test.github.io/NSH-Kit-Composition/
   const FOUNDATIONAL_KIT = {
     devices: [
       { icon: '💡', name: 'LED Light Panel', detail: 'Frequency-tunable photobiomodulation (4–40 Hz). Full-brain stim and entrainment.' },
       { icon: '🔬', name: 'LED Laser NSH', detail: 'Eye-safe foundational laser. Vagus L/R, cerebellum, spinal pathway, abdomen — no certification required.' },
+      { icon: '🟢', name: 'Green LED Laser', detail: 'Green-wavelength handheld. Chromatic-specific PBM paired with the red laser stack.' },
       { icon: '⚡', name: 'SaeboStim Pro 4-in-1', detail: 'Cranial nerve / face / body stim. Tongue, paraspinal, ST36/SP6, trigeminal.' },
       { icon: '👓', name: 'Blue Glasses + Eye Lights', detail: 'Right-brain visual stim. Pairs with rhythmic music + peppermint + body TENS.' },
       { icon: '🌿', name: 'Essential Oils Kit', detail: 'Rosemary L → left brain · Peppermint / eucalyptus / frankincense R → right brain.' },
       { icon: '🟡', name: 'Shen Men Beads', detail: 'Auricular acupressure pre/post session. Vagal regulation.' },
+      { icon: '🌀', name: 'Handheld Vibration Device', detail: 'Face, jaw, palate, body. Trigeminal stim and sensory regulation paired with SaeboStim.' },
+      { icon: '🧠', name: 'Mendi Headband', detail: 'Consumer-grade fNIRS. 3-minute weekly prefrontal blood-flow score. Family keeps the device.' },
       { icon: '🎮', name: 'NeuroSage Hub access', detail: '3-month access. Right-brain video games + enhancement modes for hemispheric activation.' }
     ],
     supplements: [
-      { icon: '💊', name: 'All In One Vitamin', detail: 'Foundational nutrient floor. 3-month supply. Replaces existing multivitamin during program.' },
+      { icon: '💊', name: 'Intramax', detail: 'Liquid foundational multivitamin + mineral complex. 3-month supply. Replaces existing multivitamin during program.' },
       { icon: '🌱', name: 'Gut Feeling', detail: 'Peptide + gut-axis support (Integrated Peptides). Gut barrier restoration. 3-month supply.' }
     ],
-    note: 'Same box for every paid tier. 7 devices + 3-month supplement supply. Zero parent certifications required — Class 1 / eye-safe across the kit.'
+    note: 'Same box for every paid tier. 10 items + 3-month supplement supply. Zero parent certifications required — Class 1 / eye-safe across the kit.'
   };
 
   // Profile-specific clinician-prescribed add-ons (the kit on top of the kit)
@@ -7703,7 +7709,7 @@ body {
     }
   };
 
-  // The 6 categories every lab panel is looking for (per Kit Composition v0.3, §3)
+  // The 6 categories every lab panel is looking for (per Kit Composition v0.10, §3)
   const LAB_CATEGORIES = [
     { num: '①', name: 'Food allergies',          detail: 'Hidden reactions driving inflammation and behavior flares' },
     { num: '②', name: 'Hidden infections',       detail: 'Parasites, candida, viruses, strep, bacteria' },
@@ -7785,7 +7791,7 @@ body {
     }
   };
 
-  // Weekly cadence (clinical contact) by tier — anchored to Pricing Model v1.2 hour budgets
+  // Weekly cadence (clinical contact) by tier — anchored to Pricing Model v1.4.3 hour budgets
   // Foundation: 9 hrs OT/PT total (heavy front-load Wk 1, then weekly check-ins)
   // Accelerated: 13 hrs OT/PT (2× weekly active phase)
   // Immersive: 18.5 hrs OT/PT (2× weekly + Saturday deep-dives)
@@ -8152,10 +8158,10 @@ body {
     return `
       <div class="sales-deck-num">04 / 08 · The kit</div>
       <div class="sales-deck-title">What we ship to <em>your home</em>.</div>
-      <div class="sales-deck-tagline">Same foundational box for every paid tier — 7 devices + 3-month supplement supply. Zero parent certifications required.</div>
+      <div class="sales-deck-tagline">Same foundational box for every paid tier — 10 items + 3-month supplement supply. Zero parent certifications required.</div>
       <div class="sales-deck-body">
 
-        <div class="sd-kit-section-label">— The 7 foundational devices</div>
+        <div class="sd-kit-section-label">— The 10 foundational items</div>
         <div class="sd-kit-grid">${devicesHTML}</div>
 
         <div class="sd-kit-section-label" style="margin-top: 14px;">— Plus 3-month supplement supply</div>
@@ -8374,7 +8380,7 @@ body {
               <div class="sd-outcome-step">
                 <div class="sd-outcome-step-num">02 · Friday</div>
                 <div class="sd-outcome-step-name">Kit ships</div>
-                <div class="sd-outcome-step-detail">7 devices + 3-month supplement supply. Tracking + setup video sent same day.</div>
+                <div class="sd-outcome-step-detail">10 items + 3-month supplement supply. Tracking + setup video sent same day.</div>
               </div>
               <div class="sd-outcome-step">
                 <div class="sd-outcome-step-num">03 · Monday</div>
