@@ -6394,7 +6394,7 @@ body {
           <div class="ff-result-card-head">
             <div class="ff-result-card-name">
               ${p.name}
-              <small>${p.sub} · internal: Profile ${p.letter}</small>
+              <small>${p.sub}</small>
             </div>
             <span class="ff-result-card-pct">${topPct}% match</span>
           </div>
@@ -6556,7 +6556,7 @@ body {
     footEl.innerHTML = `The other ${otherPct}% matters. If reflex testing on the call comes back differently than your answers suggest, Liam shifts toward <em>${secondName}</em> — same family, slightly different protocol. If labs come back with markers of <em>${thirdName}</em>, that pattern becomes more likely. <strong>That's why the call exists.</strong>`;
 
     // Source note
-    noteEl.innerHTML = `— Computed live from your answers on the previous slide. Top: <strong>Profile ${top.key}</strong> (${topPct}%) · 2nd: Profile ${second.key} (${secondPct}%) · 3rd: Profile ${third.key} (${thirdPct}%)${s.intensity ? ' · Intensity: <strong>' + s.intensity + '</strong>' : ''}.`;
+    noteEl.innerHTML = `— Computed live from your answers on the previous slide. Top: <strong>${FF_PROFILES[top.key].name}</strong> (${topPct}%) · 2nd: ${FF_PROFILES[second.key].name} (${secondPct}%) · 3rd: ${FF_PROFILES[third.key].name} (${thirdPct}%)${s.intensity ? ' · Intensity: <strong>' + s.intensity + '</strong>' : ''}.`;
     noteEl.style.color = 'var(--accent)';
 
     // ===== Update the internal CRM caveat at the bottom of slide 3 =====
@@ -6596,9 +6596,9 @@ body {
     if (!pillsEl) return;
 
     pillsEl.innerHTML = `
-      <span class="prof-pill ${topKey}">Profile ${topKey} · primary</span> &nbsp;
-      <span class="prof-pill ${secondKey}">Profile ${secondKey} · secondary</span> &nbsp;
-      <span class="prof-pill ${thirdKey}">Profile ${thirdKey} · secondary</span>
+      <span class="prof-pill ${topKey}">${FF_PROFILES[topKey].name} · primary</span> &nbsp;
+      <span class="prof-pill ${secondKey}">${FF_PROFILES[secondKey].name} · secondary</span> &nbsp;
+      <span class="prof-pill ${thirdKey}">${FF_PROFILES[thirdKey].name} · secondary</span>
     `;
 
     if (intensity) {
@@ -7077,7 +7077,7 @@ body {
       <div class="report-section">
         <div class="report-section-num">Section 6 · Secondary possibilities</div>
         <h3>Where the call sharpens this read.</h3>
-        <p>This is a 70% read built from a short intake. About <strong>${secondPct}% of the signal</strong> points to <strong>Profile ${second}</strong> as a real alternative. The reflex testing we'll run together on Tuesday — six positions, two minutes — usually settles it. Any data you can share before the call (existing labs, SLP notes, video of Liam) tightens it further.</p>
+        <p>This is a 70% read built from a short intake. About <strong>${secondPct}% of the signal</strong> points to <strong>${FF_PROFILES[second] ? FF_PROFILES[second].name : 'a secondary pattern'}</strong> as a real alternative. The reflex testing we'll run together on Tuesday — six positions, two minutes — usually settles it. Any data you can share before the call (existing labs, SLP notes, video of Liam) tightens it further.</p>
         <div class="report-secondary-box">
           <p>${r.secondaryNote}</p>
         </div>
@@ -7133,8 +7133,8 @@ body {
     const profileEl = document.getElementById('email-attachment-profile');
     const secondNameEl = document.getElementById('email-secondary-name');
     const secondPctEl = document.getElementById('email-secondary-pct');
-    if (profileEl) profileEl.textContent = `Profile ${top.key} · ${topProfile.sub}`;
-    if (secondNameEl) secondNameEl.textContent = `Profile ${second.key} — ${secondProfile.name.toLowerCase()}`;
+    if (profileEl) profileEl.textContent = `${topProfile.name} · ${topProfile.sub}`;
+    if (secondNameEl) secondNameEl.textContent = `Secondary read — ${secondProfile.name.toLowerCase()}`;
     if (secondPctEl) secondPctEl.textContent = secondPct;
   }
 
@@ -7424,7 +7424,7 @@ body {
           <div class="ff-result-card-head">
             <div class="ff-result-card-name">
               ${p.name}
-              <small>${p.sub} · internal: Profile ${ctx.profile}</small>
+              <small>${p.sub}</small>
             </div>
             <span class="ff-result-card-pct">${topPct}% match</span>
           </div>
@@ -8055,13 +8055,13 @@ body {
     return `
       <div class="sales-deck-num">02 / 08 · Cases like Liam's</div>
       <div class="sales-deck-title">${wins.headline}</div>
-      <div class="sales-deck-tagline">Profile ${ctx.profile} · ${profileName} — twelve-week worked cases from our cohort. Anonymized, parent-consented.</div>
+      <div class="sales-deck-tagline">${profileName} — twelve-week worked cases from our cohort. Anonymized, parent-consented.</div>
       <div class="sales-deck-body">
         <div class="sd-wins-list">
           ${casesHTML}
         </div>
         <div class="sd-wins-cohort">
-          <span class="sd-wins-cohort-mark">— Cohort number for Profile ${ctx.profile}</span>
+          <span class="sd-wins-cohort-mark">— Cohort number for ${profileName}</span>
           ${wins.cohortLine}
         </div>
         <div class="sd-wins-foot"><strong>Important:</strong> Every case is a child, not a guarantee. Two of these stories required protocol extensions; one needed Continuing Care to lock in. The pattern is consistent — speed varies. We'll be honest with you about what we're seeing as we go.</div>
@@ -8103,6 +8103,7 @@ body {
   }
 
   function renderKitSlide(ctx) {
+    const profileName = (FF_PROFILES[ctx.profile] || FF_PROFILES.D).name;
     const devicesHTML = FOUNDATIONAL_KIT.devices.map(it => `
       <div class="sd-kit-item">
         <div class="sd-kit-item-icon">${it.icon}</div>
@@ -8134,7 +8135,7 @@ body {
       `).join('');
       addOnsHTML = `
         <div class="sd-addons-section">
-          <div class="sd-addons-label">— Clinician-prescribed add-ons for Profile ${ctx.profile}</div>
+          <div class="sd-addons-label">— Clinician-prescribed add-ons for ${profileName}</div>
           <div class="sd-addons-grid">${addOnItems}</div>
           ${profileAddOns.footNote ? `<div class="sd-addons-foot"><em>Note:</em> ${profileAddOns.footNote}</div>` : ''}
         </div>
@@ -8142,7 +8143,7 @@ body {
     } else {
       addOnsHTML = `
         <div class="sd-addons-section">
-          <div class="sd-addons-label">— Clinician-prescribed add-ons for Profile ${ctx.profile}</div>
+          <div class="sd-addons-label">— Clinician-prescribed add-ons for ${profileName}</div>
           <div class="sd-addons-empty"><strong>None typically prescribed.</strong> ${profileAddOns.footNote || 'Foundational kit is sufficient.'}</div>
         </div>
       `;
@@ -8592,7 +8593,7 @@ body {
     var intensity = s.intensity || 'MID';
     var tierKey = (typeof inferTier === 'function') ? inferTier(profileKey, intensity) : 'Foundation';
     profileEl.className = 'cover-persona-pill profile-' + profileKey;
-    profileEl.textContent = 'Profile ' + profileKey + ' · ' + profileName;
+    profileEl.textContent = profileName;
     tierEl.className = 'cover-persona-pill tier-' + tierKey;
     tierEl.textContent = tierKey + ' · ' + intensity;
   }
